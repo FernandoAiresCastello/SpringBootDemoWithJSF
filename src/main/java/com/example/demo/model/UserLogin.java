@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 @Table(schema = "public", name = "user_login")
 public class UserLogin implements Serializable {
 
-    private static Log log = LogFactory.getLog(UserLogin.class);
+    private static final Log log = LogFactory.getLog(UserLogin.class);
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,7 +34,6 @@ public class UserLogin implements Serializable {
     private String password;
 
     @Column(name = "last_login_datetime")
-    @Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime lastLoginDatetime;
 
     @Column(name = "is_active")

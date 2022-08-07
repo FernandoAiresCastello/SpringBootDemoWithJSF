@@ -2,6 +2,7 @@ package com.example.demo.config;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
@@ -15,6 +16,7 @@ import java.util.List;
 
 @SpringBootApplication
 @ComponentScan(basePackages = {"com.example.demo"})
+@EntityScan(basePackages = {"com.example.demo"})
 public class DemoApplication extends SpringBootServletInitializer {
 
 	public static void main(String[] args) {

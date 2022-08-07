@@ -6,14 +6,14 @@ import org.apache.commons.logging.LogFactory;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.time.LocalDateTime;
+import java.util.Date;
 
 @Data
 @Entity(name = "Person")
 @Table(schema = "public", name = "person")
 public class Person implements Serializable {
 
-    private static Log log = LogFactory.getLog(Person.class);
+    private static final Log log = LogFactory.getLog(Person.class);
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,8 +32,7 @@ public class Person implements Serializable {
     private String fullName;
 
     @Column(name = "birth_date")
-    @Temporal(TemporalType.DATE)
-    private LocalDateTime birthDate;
+    private Date birthDate;
 
     @Column(name = "phone_number")
     private String phoneNumber;

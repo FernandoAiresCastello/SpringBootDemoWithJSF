@@ -11,11 +11,29 @@
     <h:body>
         <div>
             <h1>JavaDemo</h1>
+
             <h:form>
-                <h:commandButton value="Click me!" action="#{indexController.sayHelloWorld}" />
+                <h:commandButton value="Hello World!" action="#{indexController.sayHelloWorld}" />
+                <h:commandButton value="Persist new person" action="#{indexController.addTestPersonToDatabase}" />
+                <h:commandButton value="Reload person list" action="#{indexController.populatePersonListFromDatabase}" />
             </h:form>
-            <h:outputText value="#{indexController.message}">
-            </h:outputText>
+
+            <h:outputText value="#{indexController.message}"/>
+
+            <h:dataTable value="#{indexController.personList}" var="person" frame="border" cellpadding="5px">
+                <h:column><f:facet name="header">Id</f:facet><h:outputText value="#{person.id}"/></h:column>
+                <h:column><f:facet name="header">First name</f:facet><h:outputText value="#{person.firstName}"/></h:column>
+                <h:column><f:facet name="header">Last name</f:facet><h:outputText value="#{person.lastName}"/></h:column>
+                <h:column>
+                    <f:facet name="header">Birth date</f:facet>
+                    <h:outputText value="#{person.birthDate}">
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:outputText>
+                </h:column>
+                <h:column><f:facet name="header">Phone number</f:facet><h:outputText value="#{person.phoneNumber}"/></h:column>
+                <h:column><f:facet name="header">Address</f:facet><h:outputText value="#{person.address}"/></h:column>
+            </h:dataTable>
+
         </div>
     </h:body>
 </f:view>
