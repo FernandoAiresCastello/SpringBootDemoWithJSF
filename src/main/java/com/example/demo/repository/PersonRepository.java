@@ -20,6 +20,11 @@ public class PersonRepository {
     @PersistenceContext
     private EntityManager em;
 
+    private void flushAndClear() {
+        em.flush();
+        em.clear();
+    }
+
     @Transactional
     public void insertWithNativeQuery(Person person) {
         em.createNativeQuery("INSERT INTO person (first_name, last_name, birth_date, phone_number, address) VALUES (?,?,?,?,?)")
@@ -29,12 +34,15 @@ public class PersonRepository {
                 .setParameter(4, person.getPhoneNumber())
                 .setParameter(5, person.getAddress())
                 .executeUpdate();
+
+        flushAndClear();
     }
 
     @Transactional
     public void insertWithEntityManager(Person person) {
         try {
             em.persist(person);
+            flushAndClear();
         } catch (Exception ex) {
             log.error("Could not persist Person", ex);
         }
@@ -49,5 +57,20 @@ public class PersonRepository {
             log.error("Could not get Person list", ex);
         }
         return personList;
+    }
+
+    @Transactional
+    public void delete(int idPerson) {
+        try {
+            Person person = em.find(Person.class, idPerson);
+            if (person != null) {
+                em.remove(person);
+                flushAndClear();
+            } else {
+                log.error("Person with id " + idPerson + " was not found");
+            }
+        } catch (Exception ex) {
+            log.error("Could not delete Person with id " + idPerson, ex);
+        }
     }
 }

@@ -6,33 +6,36 @@
     <h:head>
         <meta charset="utf-8"/>
         <meta http-equiv="x-ua-compatible" content="IE=edge,chrome=1"/>
+        <h:outputStylesheet name="css/index.css" />
         <title>JavaDemo</title>
     </h:head>
     <h:body>
-        <div>
-            <h1>JavaDemo</h1>
+        <div class="content-root">
+            <h1 style="text-align: center">Person Database</h1>
 
             <h:form>
-                <h:commandButton value="Hello World!" action="#{indexController.sayHelloWorld}" />
-                <h:commandButton value="Persist new person" action="#{indexController.addTestPersonToDatabase}" />
-                <h:commandButton value="Reload person list" action="#{indexController.populatePersonListFromDatabase}" />
+                <h:commandButton value="Create a test person" action="#{indexController.addTestPersonToDatabase}" styleClass="cmd-button" />
+                <h:commandButton value="Reload person list" action="#{indexController.reloadPersonList}" styleClass="cmd-button" />
+
+                <h:dataTable value="#{indexController.personList}" var="person" styleClass="person-list">
+                    <h:column><f:facet name="header">Id</f:facet><h:outputText value="#{person.id}"/></h:column>
+                    <h:column><f:facet name="header">First name</f:facet><h:outputText value="#{person.firstName}"/></h:column>
+                    <h:column><f:facet name="header">Last name</f:facet><h:outputText value="#{person.lastName}"/></h:column>
+                    <h:column>
+                        <f:facet name="header">Birth date</f:facet>
+                        <h:outputText value="#{person.birthDate}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                    </h:column>
+                    <h:column><f:facet name="header">Phone number</f:facet><h:outputText value="#{person.phoneNumber}"/></h:column>
+                    <h:column><f:facet name="header">Address</f:facet><h:outputText value="#{person.address}"/></h:column>
+                    <h:column><f:facet name="header" />
+                        <h:commandButton value="Delete" action="#{indexController.deletePersonFromDatabase}">
+                            <f:param name="idPerson" value="#{person.id}" />
+                        </h:commandButton>
+                    </h:column>
+                </h:dataTable>
             </h:form>
-
-            <h:outputText value="#{indexController.message}"/>
-
-            <h:dataTable value="#{indexController.personList}" var="person" frame="border" cellpadding="5px">
-                <h:column><f:facet name="header">Id</f:facet><h:outputText value="#{person.id}"/></h:column>
-                <h:column><f:facet name="header">First name</f:facet><h:outputText value="#{person.firstName}"/></h:column>
-                <h:column><f:facet name="header">Last name</f:facet><h:outputText value="#{person.lastName}"/></h:column>
-                <h:column>
-                    <f:facet name="header">Birth date</f:facet>
-                    <h:outputText value="#{person.birthDate}">
-                        <f:convertDateTime pattern="MM/dd/yyyy" />
-                    </h:outputText>
-                </h:column>
-                <h:column><f:facet name="header">Phone number</f:facet><h:outputText value="#{person.phoneNumber}"/></h:column>
-                <h:column><f:facet name="header">Address</f:facet><h:outputText value="#{person.address}"/></h:column>
-            </h:dataTable>
 
         </div>
     </h:body>

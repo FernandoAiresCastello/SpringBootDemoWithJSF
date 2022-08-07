@@ -1,0 +1,15 @@
+.content-root {
+    margin: 20px auto 0;
+    width: 1000px;
+}
+.cmd-button {
+    margin-right: 5px;
+}
+.person-list {
+    width: 100%;
+    border: 1px solid #eee;
+    margin-top: 20px;
+}
+.person-list td {
+    border: 1px solid #eee;
+}
